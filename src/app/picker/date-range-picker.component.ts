@@ -143,6 +143,7 @@ export class DateRangePickerComponent implements OnInit {
             if (this.datePick && this.datePick.to &&
                 dateFns.compareDesc(date, this.datePick.to) < 1) {
                 this.datePick.to = null;
+                this.dateRangeChange.emit(null);
             } else {
                 this.dateRangeChange.emit(Object.assign({}, this.datePick));
             }
@@ -153,6 +154,7 @@ export class DateRangePickerComponent implements OnInit {
             if (this.datePick && this.datePick.from &&
                 dateFns.compareAsc(date, this.datePick.from) < 1) {
                 this.datePick.from = null;
+                this.dateRangeChange.emit(null);
             } else {
                 this.dateRangeChange.emit(Object.assign({}, this.datePick));
             }
