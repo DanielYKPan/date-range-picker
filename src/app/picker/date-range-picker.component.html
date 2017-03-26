@@ -86,7 +86,22 @@
 </g>
 </svg>
 <!--</editor-fold>--></div>
-        <div class="yk-calendar"></div>
+        <div class="yk-calendar">
+			<div class="yk-calendar-control">
+				<div class="yk-calendar-control-nav">
+					<span class="nav-prev"></span>
+				</div>
+				<div class="yk-calendar-control-content">
+					<div class="content">
+						<span class="month">{{moment | date: 'MMMM'}}</span>
+						<span class="year">{{moment | date: 'y'}}</span>
+					</div>
+				</div>
+				<div class="yk-calendar-control-nav">
+					<span class="nav-next"></span>
+				</div>
+			</div>
+		</div>
         <div class="yk-calendar-sidebar">
 			<div class="yk-sidebar-btns">
 				<button class="yk-btn">This Month</button>

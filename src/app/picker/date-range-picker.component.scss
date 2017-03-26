@@ -131,6 +131,70 @@ $dateRangeContainerH: $base-line-height * 2.5;
       border-right: 1px solid $border-light;
       border-bottom: none;
     }
+
+    .yk-calendar-control {
+      display: flex;
+      height: $base-line-height;
+      width: 100%;
+    }
+
+    .yk-calendar-control-nav {
+      position: relative;
+      cursor: pointer;
+      width: calc(100% / 8);
+
+      & > * {
+        position: absolute;
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .nav-prev::before,
+      .nav-next::before {
+        content: " ";
+        border-top: .5em solid transparent;
+        border-bottom: .5em solid transparent;
+        border-right: .75em solid #000;
+        width: 0;
+        height: 0;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .nav-next::before {
+        border-right: 0;
+        border-left: .75em solid #000;
+      }
+    }
+
+    .yk-calendar-control-content {
+      width: calc(100% * 6 / 8);
+      text-align: center;
+
+      .month,
+      .year {
+        display: inline-block;
+        cursor: pointer;
+        transition: transform 200ms ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+
+      .month {
+        margin-right: .5rem;
+        font-weight: 700;
+      }
+
+      .year {
+        font-style: italic;
+        color: #999;
+      }
+    }
   }
 
   .yk-calendar-sidebar {

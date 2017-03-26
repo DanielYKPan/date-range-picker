@@ -29,7 +29,7 @@ export class DateRangePickerComponent implements OnInit {
     public opened: false | 'from' | 'to';
     public datePick: IDateRange;
     public range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
-
+    public moment: Date;
     @Input() private dateRange: IDateRange;
     @Output() private dateRangeChange = new EventEmitter<IDateRange>();
 
@@ -45,6 +45,7 @@ export class DateRangePickerComponent implements OnInit {
         } else {
             this.selectRange('tw');
         }
+        this.moment = new Date(this.datePick.from);
     }
 
     public toggleCalendar( selection: false | 'from' | 'to' ): void {
