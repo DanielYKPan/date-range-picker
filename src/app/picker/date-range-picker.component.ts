@@ -30,6 +30,7 @@ export class DateRangePickerComponent implements OnInit {
     public datePick: IDateRange;
     public range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
     public moment: Date;
+    public dayNames: string[];
     @Input() private dateRange: IDateRange;
     @Output() private dateRangeChange = new EventEmitter<IDateRange>();
 
@@ -38,6 +39,7 @@ export class DateRangePickerComponent implements OnInit {
 
     public ngOnInit() {
         this.opened = false;
+        this.dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         if (this.dateRange &&
             this.dateRange.from &&
             this.dateRange.to) {

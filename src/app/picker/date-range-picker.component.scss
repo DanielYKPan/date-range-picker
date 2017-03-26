@@ -121,7 +121,6 @@ $dateRangeContainerH: $base-line-height * 2.5;
   }
 
   .yk-calendar {
-    display: flex;
     width: 100vw;
     height: 500px;
     border-bottom: 1px solid $border-light;
@@ -193,6 +192,25 @@ $dateRangeContainerH: $base-line-height * 2.5;
       .year {
         font-style: italic;
         color: #999;
+      }
+    }
+
+    .yk-calendar-content {
+      width: 100%;
+
+      .yk-calendar-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: $base-line-height/2;
+      }
+
+      .yk-weekday {
+        @include type-setting(-1);
+        font-weight: 700;
+        text-align: left;
+        color: #999;
+        width: calc(100% / 7);
       }
     }
   }
