@@ -31,6 +31,7 @@ export class DateRangePickerComponent implements OnInit {
     public range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
     public moment: Date;
     public dayNames: string[];
+    public dates: Date[];
     @Input() private dateRange: IDateRange;
     @Output() private dateRangeChange = new EventEmitter<IDateRange>();
 
@@ -44,10 +45,11 @@ export class DateRangePickerComponent implements OnInit {
             this.dateRange.from &&
             this.dateRange.to) {
             this.datePick = Object.assign({}, this.dateRange);
+            this.moment = new Date(this.datePick.from);
+            this.generateCalendar();
         } else {
             this.selectRange('tw');
         }
-        this.moment = new Date(this.datePick.from);
     }
 
     public toggleCalendar( selection: false | 'from' | 'to' ): void {
@@ -107,6 +109,20 @@ export class DateRangePickerComponent implements OnInit {
         }
 
         this.range = range;
+        this.moment = new Date(this.datePick.from);
+        this.generateCalendar();
+    }
+
+    public generateCalendar(): void {
+        this.dates = [];
+        let firstDate = dateFns.startOfMonth(this.moment);
+        let start = 0 - (dateFns.getDay(firstDate) + 7) % 7;
+        let end = 41 + start; // iterator ending point
+
+        for (let i = start; i <= end; i += 1) {
+            let day = dateFns.addDays(firstDate, i);
+            this.dates.push(day);
+        }
     }
 
     @HostListener('document:click', ['$event'])

@@ -122,7 +122,6 @@ $dateRangeContainerH: $base-line-height * 2.5;
 
   .yk-calendar {
     width: 100vw;
-    height: 500px;
     border-bottom: 1px solid $border-light;
     padding: $base-line-height;
     @include respond-to(medium) {
@@ -132,9 +131,11 @@ $dateRangeContainerH: $base-line-height * 2.5;
     }
 
     .yk-calendar-control {
+      @include type-setting(-1);
       display: flex;
       height: $base-line-height;
       width: 100%;
+      margin-bottom: $base-line-height/2;
     }
 
     .yk-calendar-control-nav {
@@ -202,7 +203,6 @@ $dateRangeContainerH: $base-line-height * 2.5;
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        margin-top: $base-line-height/2;
       }
 
       .yk-weekday {
@@ -211,6 +211,30 @@ $dateRangeContainerH: $base-line-height * 2.5;
         text-align: left;
         color: #999;
         width: calc(100% / 7);
+      }
+
+      .yk-day {
+        @include type-setting(-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: $base-line-height * 2;
+        text-align: center;
+        cursor: pointer;
+        width: calc(100% / 7);
+
+        &:hover {
+          background: #b1dcfb
+        }
+
+        &.out-focus {
+          color: #ddd;
+
+          &:hover {
+            color: #000;
+          }
+        }
       }
     }
   }

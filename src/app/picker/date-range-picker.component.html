@@ -105,6 +105,12 @@
 				<div class="yk-calendar-row">
 					<span class="yk-weekday" *ngFor="let day of dayNames">{{ day }}</span>
 				</div>
+				<div class="yk-calendar-row">
+					<div class="yk-day"
+						  *ngFor="let day of dates" [ngClass]="{'out-focus': day.getMonth() !== moment.getMonth()}">
+						<span>{{ day | date: 'd' }}</span>
+					</div>
+				</div>
 			</div>
 		</div>
         <div class="yk-calendar-sidebar">
