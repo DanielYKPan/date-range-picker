@@ -135,6 +135,18 @@ export class DateRangePickerComponent implements OnInit {
         this.generateCalendar();
     }
 
+    public isWithinRange(day: Date): boolean {
+        return dateFns.isWithinRange(day, this.datePick.from, this.datePick.to);
+    }
+
+    public isDateRangeFrom( day: Date ): boolean {
+        return dateFns.isSameDay(day, this.datePick.from);
+    }
+
+    public isDateRangeTo( day: Date ): boolean {
+        return dateFns.isSameDay(day, this.datePick.to);
+    }
+
     @HostListener('document:click', ['$event'])
     private handleBlurClick( e: MouseEvent ) {
         let target = e.srcElement || e.target;
