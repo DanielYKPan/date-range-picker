@@ -2,7 +2,7 @@
     <div class="yk-input-container">
         <div class="yk-input-section" (click)="toggleCalendar('from')">
             <span class="yk-label">Start</span>
-            <span class="yk-content">{{dateRange?.from | date: 'mediumDate' }}</span>
+            <span class="yk-content">{{datePick?.from | date: 'mediumDate' }}</span>
             <span class="yk-icon"><!--<editor-fold desc="Calendar Icon">-->
                 <svg version="1.1" id="calendar_icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100%" height="100%" viewBox="0 0 488.152 488.152" style="enable-background:new 0 0 488.152 488.152;"
@@ -38,7 +38,7 @@
         </div>
         <div class="yk-input-section" (click)="toggleCalendar('to')">
             <span class="yk-label">End</span>
-            <span class="yk-content">{{dateRange?.to | date: 'mediumDate' }}</span>
+            <span class="yk-content">{{datePick?.to | date: 'mediumDate' }}</span>
             <span class="yk-icon"><!--<editor-fold desc="Calendar Icon">-->
                 <svg version="1.1" id="calendar_icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100%" height="100%" viewBox="0 0 488.152 488.152" style="enable-background:new 0 0 488.152 488.152;"

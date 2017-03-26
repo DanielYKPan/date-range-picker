@@ -2,7 +2,11 @@
  * date-range-picker.component
  */
 
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import {
+    Component, ElementRef, EventEmitter, HostListener, Input, OnInit,
+    Output
+} from '@angular/core';
+import * as dateFns from 'date-fns';
 
 // webpack1_
 declare let require: any;
@@ -23,17 +27,24 @@ interface IDateRange {
 export class DateRangePickerComponent implements OnInit {
 
     public opened: false | 'from' | 'to';
-    public dateRange: IDateRange;
+    public datePick: IDateRange;
+    public range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
+
+    @Input() private dateRange: IDateRange;
+    @Output() private dateRangeChange = new EventEmitter<IDateRange>();
 
     constructor( private elementRef: ElementRef ) {
     }
 
     public ngOnInit() {
         this.opened = false;
-        this.dateRange = {
-            from: new Date(),
-            to: new Date(),
-        };
+        if (this.dateRange &&
+            this.dateRange.from &&
+            this.dateRange.to) {
+            this.datePick = Object.assign({}, this.dateRange);
+        } else {
+            this.selectRange('tw');
+        }
     }
 
     public toggleCalendar( selection: false | 'from' | 'to' ): void {
@@ -44,6 +55,55 @@ export class DateRangePickerComponent implements OnInit {
         } else {
             this.opened = this.opened ? false : selection;
         }
+    }
+
+    public selectRange( range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly' ): void {
+        let today = dateFns.startOfDay(new Date());
+
+        switch (range) {
+            case 'tm':
+                this.datePick = {
+                    from: dateFns.startOfMonth(today),
+                    to: dateFns.endOfMonth(today)
+                };
+                break;
+            case 'lm':
+                today = dateFns.subMonths(today, 1);
+                this.datePick = {
+                    from: dateFns.startOfMonth(today),
+                    to: dateFns.endOfMonth(today)
+                };
+                break;
+            case 'lw':
+                today = dateFns.subWeeks(today, 1);
+                this.datePick = {
+                    from: dateFns.startOfWeek(today),
+                    to: dateFns.endOfWeek(today)
+                };
+                break;
+            default:
+            case 'tw':
+                this.datePick = {
+                    from: dateFns.startOfWeek(today),
+                    to: dateFns.endOfWeek(today)
+                };
+                break;
+            case 'ty':
+                this.datePick = {
+                    from: dateFns.startOfYear(today),
+                    to: dateFns.endOfYear(today)
+                };
+                break;
+            case 'ly':
+                today = dateFns.subYears(today, 1);
+                this.datePick = {
+                    from: dateFns.startOfYear(today),
+                    to: dateFns.endOfYear(today)
+                };
+                break;
+        }
+
+        this.range = range;
     }
 
     @HostListener('document:click', ['$event'])
