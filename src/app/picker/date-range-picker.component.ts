@@ -40,7 +40,7 @@ export class DateRangePickerComponent implements OnInit {
 
     public ngOnInit() {
         this.opened = false;
-        this.dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         if (this.dateRange &&
             this.dateRange.from &&
             this.dateRange.to) {
@@ -123,6 +123,16 @@ export class DateRangePickerComponent implements OnInit {
             let day = dateFns.addDays(firstDate, i);
             this.dates.push(day);
         }
+    }
+
+    public prevMonth(): void {
+        this.moment = dateFns.addMonths(this.moment, -1);
+        this.generateCalendar();
+    }
+
+    public nextMonth(): void {
+        this.moment = dateFns.addMonths(this.moment, 1);
+        this.generateCalendar();
     }
 
     @HostListener('document:click', ['$event'])
