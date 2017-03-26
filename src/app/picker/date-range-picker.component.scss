@@ -1,3 +1,39 @@
-.title {
-  color: rebeccapurple;
+@import './colors';
+
+.yk-dateRange-container {
+  width: 300px;
+  height: 50px;
+  background: $white;
+  display: inline-block;
+  border: 1px solid $border;
+  border-radius: 7px;
+  position: relative;
+
+  &.is-active {
+    border: 1px solid $blue;
+  }
+}
+
+.yk-input-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .yk-input-section {
+    width: 50%;
+    height: 100%;
+    outline: none;
+    padding: 7px 10px;
+    color: #2c2e2f;
+    cursor: pointer;
+    position: relative;
+
+    &:first-child {
+      border-right: .5px solid $border-light;
+    }
+
+    &:last-child {
+      border-left: .5px solid $border-light;
+    }
+  }
 }

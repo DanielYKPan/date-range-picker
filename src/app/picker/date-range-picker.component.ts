@@ -16,10 +16,23 @@ const myDpTpl: string = require('./date-range-picker.component.html');
     styles: [myDpStyles],
 })
 export class DateRangePickerComponent implements OnInit {
+
+    public opened: false | 'from' | 'to';
+
     constructor() {
     }
 
     public ngOnInit() {
+        this.opened = false;
     }
 
+    public toggleCalendar( selection: false | 'from' | 'to' ): void {
+        if (!selection) {
+            this.opened = false;
+        } else if (this.opened && this.opened !== selection) {
+            this.opened = selection;
+        } else {
+            this.opened = this.opened ? false : selection;
+        }
+    }
 }

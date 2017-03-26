@@ -1,1 +1,6 @@
-<div class="title">Date Range Picker</div>
+<div class="yk-dateRange-container" [ngClass]="{'is-active': opened}">
+    <div class="yk-input-container">
+        <div class="yk-input-section" (click)="toggleCalendar('from')"></div>
+        <div class="yk-input-section" (click)="toggleCalendar('to')"></div>
+    </div>
+</div>
