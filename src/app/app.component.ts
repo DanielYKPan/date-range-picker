@@ -2,7 +2,7 @@
  * app.component
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'yk-app',
@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
     }
 }
