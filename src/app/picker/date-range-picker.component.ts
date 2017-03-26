@@ -10,6 +10,11 @@ const myDpStyles: string = require('./date-range-picker.component.scss');
 const myDpTpl: string = require('./date-range-picker.component.html');
 // webpack2_
 
+interface IDateRange {
+    from: Date;
+    to: Date;
+}
+
 @Component({
     selector: 'app-date-range',
     template: myDpTpl,
@@ -18,12 +23,17 @@ const myDpTpl: string = require('./date-range-picker.component.html');
 export class DateRangePickerComponent implements OnInit {
 
     public opened: false | 'from' | 'to';
+    public dateRange: IDateRange;
 
     constructor() {
     }
 
     public ngOnInit() {
         this.opened = false;
+        this.dateRange = {
+            from: new Date(),
+            to: new Date(),
+        };
     }
 
     public toggleCalendar( selection: false | 'from' | 'to' ): void {

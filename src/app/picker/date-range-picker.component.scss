@@ -1,8 +1,13 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
 @import './colors';
+
+$dateRangeContainerH: $base-line-height * 2.5;
 
 .yk-dateRange-container {
   width: 300px;
-  height: 50px;
+  height: $dateRangeContainerH;
   background: $white;
   display: inline-block;
   border: 1px solid $border;
@@ -23,7 +28,7 @@
     width: 50%;
     height: 100%;
     outline: none;
-    padding: 7px 10px;
+    padding: $base-line-height/4 10px;
     color: #2c2e2f;
     cursor: pointer;
     position: relative;
@@ -34,6 +39,16 @@
 
     &:last-child {
       border-left: .5px solid $border-light;
+    }
+
+    .yk-label, .yk-content {
+      @include type-setting(-1);
+      display: block;
+      text-align: center;
+    }
+
+    .yk-label {
+      color: $blue;
     }
   }
 }

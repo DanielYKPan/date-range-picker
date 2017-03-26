@@ -1,6 +1,12 @@
 <div class="yk-dateRange-container" [ngClass]="{'is-active': opened}">
     <div class="yk-input-container">
-        <div class="yk-input-section" (click)="toggleCalendar('from')"></div>
-        <div class="yk-input-section" (click)="toggleCalendar('to')"></div>
+        <div class="yk-input-section" (click)="toggleCalendar('from')">
+            <span class="yk-label">Start</span>
+            <span class="yk-content">{{dateRange?.from | date: 'mediumDate' }}</span>
+        </div>
+        <div class="yk-input-section" (click)="toggleCalendar('to')">
+            <span class="yk-label">End</span>
+            <span class="yk-content">{{dateRange?.to | date: 'mediumDate' }}</span>
+        </div>
     </div>
 </div>
