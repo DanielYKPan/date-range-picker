@@ -50,5 +50,17 @@ $dateRangeContainerH: $base-line-height * 2.5;
     .yk-label {
       color: $blue;
     }
+
+    .yk-icon {
+      position: absolute;
+      right: 10px;
+      bottom: $base-line-height / 4;
+      width: 20px;
+      height: 20px;
+
+      svg {
+        fill: $blue;
+      }
+    }
   }
 }
