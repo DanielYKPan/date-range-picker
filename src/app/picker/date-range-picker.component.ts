@@ -2,7 +2,7 @@
  * date-range-picker.component
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 
 // webpack1_
 declare let require: any;
@@ -25,7 +25,7 @@ export class DateRangePickerComponent implements OnInit {
     public opened: false | 'from' | 'to';
     public dateRange: IDateRange;
 
-    constructor() {
+    constructor( private elementRef: ElementRef ) {
     }
 
     public ngOnInit() {
@@ -43,6 +43,15 @@ export class DateRangePickerComponent implements OnInit {
             this.opened = selection;
         } else {
             this.opened = this.opened ? false : selection;
+        }
+    }
+
+    @HostListener('document:click', ['$event'])
+    private handleBlurClick( e: MouseEvent ) {
+        let target = e.srcElement || e.target;
+        if (!this.elementRef.nativeElement.contains(e.target)
+            && !(<Element> target).classList.contains('day-num')) {
+            this.opened = false;
         }
     }
 }

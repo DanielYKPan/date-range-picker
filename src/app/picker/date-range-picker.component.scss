@@ -64,3 +64,61 @@ $dateRangeContainerH: $base-line-height * 2.5;
     }
   }
 }
+
+.yk-calendar-container {
+  position: absolute;
+  top: calc(#{$dateRangeContainerH} + #{$base-line-height});
+  left: 0;
+  width: 500px;
+  height: 500px;
+  background: $white;
+  border: 1px solid $blue;
+  border-radius: 7px;
+  user-select: none;
+  z-index: 100;
+  display: none;
+  flex-wrap: wrap;
+
+  &.is-opened {
+    display: flex;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: $base-line-height;
+    height: $base-line-height;
+    top: -11px;
+    left: 65px;
+    transform: rotate(45deg);
+    border-top: 1px solid $blue;
+    border-left: 1px solid $blue;
+    background: $white;
+    transition: left 0.5s;
+  }
+
+  &.is-to:after {
+    left: 215px;
+  }
+
+  .yk-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+  }
+
+  .yk-calendar {
+    display: flex;
+    width: 340px;
+    border-right: 1px solid $border-light;
+    padding: $base-line-height;
+  }
+
+  .yk-calendar-sidebar {
+    flex-grow: 1;
+  }
+}
