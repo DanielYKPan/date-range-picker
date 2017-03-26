@@ -32,6 +32,7 @@ $dateRangeContainerH: $base-line-height * 2.5;
     color: #2c2e2f;
     cursor: pointer;
     position: relative;
+    transition: all 500ms ease;
 
     &:first-child {
       border-right: .5px solid $border-light;
@@ -62,6 +63,19 @@ $dateRangeContainerH: $base-line-height * 2.5;
         fill: $blue;
       }
     }
+
+    &.is-active {
+      color: $white;
+      background-color: $blue;
+
+      .yk-label {
+        color: $white;
+      }
+
+      .yk-icon svg {
+        fill: $white;
+      }
+    }
   }
 }
 
@@ -70,6 +84,7 @@ $dateRangeContainerH: $base-line-height * 2.5;
   top: 0;
   left: 0;
   width: 100vw;
+  height: 100%;
   max-width: 500px;
   background: $white;
   border: 1px solid $blue;
@@ -78,10 +93,13 @@ $dateRangeContainerH: $base-line-height * 2.5;
   z-index: 100;
   display: none;
   flex-wrap: wrap;
+  overflow-y: scroll;
 
   @include respond-to(medium) {
     position: absolute;
     top: calc(#{$dateRangeContainerH} + #{$base-line-height});
+    height: auto;
+    overflow: inherit;
   }
 
   &.is-opened {
@@ -267,17 +285,24 @@ $dateRangeContainerH: $base-line-height * 2.5;
   }
 
   .yk-calendar-sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
     width: 158px;
 
     .yk-sidebar-btns {
-      display: flex;
+      display: none;
       flex-wrap: wrap;
       justify-content: space-around;
       align-items: center;
       align-content: center;
       width: 100%;
       height: 100%;
+
+      @include respond-to(medium) {
+        display: flex;
+      }
 
       .yk-btn {
         background: $white;
@@ -291,6 +316,81 @@ $dateRangeContainerH: $base-line-height * 2.5;
         padding: 0;
         color: $text-button;
         cursor: pointer;
+
+        &.is-active {
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
+
+    .yk-sidebar-inputs {
+      width: 150px;
+      height: $dateRangeContainerH * 2;
+      background: $white;
+      border-radius: 7px;
+      border: 1px solid $blue;
+      margin: $base-line-height/2 0;
+      display: flex;
+      flex-direction: column;
+
+      @include respond-to(medium) {
+        display: none;
+      }
+
+      .yk-input-section {
+        width: 100%;
+        height: 50%;
+        outline: none;
+        padding: $base-line-height/4 10px;
+        color: #2c2e2f;
+        cursor: pointer;
+        position: relative;
+        transition: all 500ms ease;
+
+        &:first-child {
+          border-bottom: .5px solid $border-light;
+        }
+
+        &:last-child {
+          border-top: .5px solid $border-light;
+        }
+
+        .yk-label, .yk-content {
+          @include type-setting(-1);
+          display: block;
+          text-align: center;
+        }
+
+        .yk-label {
+          color: $blue;
+        }
+
+        .yk-icon {
+          position: absolute;
+          top: auto;
+          right: 10px;
+          bottom: $base-line-height / 4;
+          width: 20px;
+          height: 20px;
+
+          svg {
+            fill: $blue;
+          }
+        }
+
+        &.is-active {
+          color: $white;
+          background-color: $blue;
+
+          .yk-label {
+            color: $white;
+          }
+
+          .yk-icon svg {
+            fill: $white;
+          }
+        }
       }
     }
   }
