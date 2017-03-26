@@ -107,13 +107,13 @@
 				</div>
 				<div class="yk-calendar-row">
 					<div class="yk-day"
-						  *ngFor="let day of dates" [ngClass]="{
-						  'out-focus': day.getMonth() !== moment.getMonth(),
-						  'is-within-range': isWithinRange(day),
-						  'is-from': isDateRangeFrom(day),
-						  'is-to': isDateRangeTo(day)
-						  }">
-						<span class="yk-day-num" [ngClass]="{'is-active': isDateRangeFrom(day) || isDateRangeTo(day)}">{{ day | date: 'd' }}</span>
+						 *ngFor="let date of dates" [ngClass]="{
+						  'out-focus': date.getMonth() !== moment.getMonth(),
+						  'is-within-range': isWithinRange(date),
+						  'is-from': isDateRangeFrom(date),
+						  'is-to': isDateRangeTo(date)
+						  }" (click)="selectDate(date)">
+						<span class="yk-day-num" [ngClass]="{'is-active': isDateRangeFrom(date) || isDateRangeTo(date)}">{{ date | date: 'd' }}</span>
 					</div>
 				</div>
 			</div>

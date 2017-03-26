@@ -41,10 +41,14 @@ export class DateRangePickerComponent implements OnInit {
     public ngOnInit() {
         this.opened = false;
         this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        this.datePick = {
+            from: null,
+            to: null
+        };
         if (this.dateRange &&
             this.dateRange.from &&
             this.dateRange.to) {
-            this.datePick = Object.assign({}, this.dateRange);
+            this.datePick = Object.assign({}, this.datePick, this.dateRange);
             this.moment = new Date(this.datePick.from);
             this.generateCalendar();
         } else {
@@ -53,12 +57,19 @@ export class DateRangePickerComponent implements OnInit {
     }
 
     public toggleCalendar( selection: false | 'from' | 'to' ): void {
-        if (!selection) {
-            this.opened = false;
-        } else if (this.opened && this.opened !== selection) {
+        if (this.opened && this.opened !== selection) {
             this.opened = selection;
         } else {
             this.opened = this.opened ? false : selection;
+        }
+        if (selection && this.datePick[selection]) {
+            let diffMonths = dateFns.differenceInCalendarMonths(
+                this.datePick[selection], this.moment);
+
+            if (diffMonths !== 0) {
+                this.moment = dateFns.addMonths(this.moment, diffMonths);
+                this.generateCalendar();
+            }
         }
     }
 
@@ -125,6 +136,36 @@ export class DateRangePickerComponent implements OnInit {
         }
     }
 
+    public selectDate( date: Date ): void {
+
+        if (this.opened === 'from') {
+            this.datePick.from = date;
+            if (this.datePick && this.datePick.to &&
+                dateFns.compareDesc(date, this.datePick.to) < 1) {
+                this.datePick.to = null;
+            } else {
+                this.dateRangeChange.emit(Object.assign({}, this.datePick));
+            }
+        }
+
+        if (this.opened === 'to') {
+            this.datePick.to = date;
+            if (this.datePick && this.datePick.from &&
+                dateFns.compareAsc(date, this.datePick.from) < 1) {
+                this.datePick.from = null;
+            } else {
+                this.dateRangeChange.emit(Object.assign({}, this.datePick));
+            }
+        }
+
+        /*let diffMonths = dateFns.differenceInCalendarMonths(date, this.moment);
+
+        if (diffMonths !== 0) {
+            this.moment = dateFns.addMonths(this.moment, diffMonths);
+            this.generateCalendar();
+        }*/
+    }
+
     public prevMonth(): void {
         this.moment = dateFns.addMonths(this.moment, -1);
         this.generateCalendar();
@@ -135,8 +176,9 @@ export class DateRangePickerComponent implements OnInit {
         this.generateCalendar();
     }
 
-    public isWithinRange(day: Date): boolean {
-        return dateFns.isWithinRange(day, this.datePick.from, this.datePick.to);
+    public isWithinRange( day: Date ): boolean {
+        return this.datePick.from && this.datePick.to
+            && dateFns.isWithinRange(day, this.datePick.from, this.datePick.to);
     }
 
     public isDateRangeFrom( day: Date ): boolean {
@@ -151,7 +193,7 @@ export class DateRangePickerComponent implements OnInit {
     private handleBlurClick( e: MouseEvent ) {
         let target = e.srcElement || e.target;
         if (!this.elementRef.nativeElement.contains(e.target)
-            && !(<Element> target).classList.contains('day-num')) {
+            && !(<Element> target).classList.contains('yk-day-num')) {
             this.opened = false;
         }
     }
