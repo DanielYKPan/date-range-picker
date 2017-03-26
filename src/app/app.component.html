@@ -21,8 +21,11 @@
         </div>
 
         <div class="demo">
-            <h1>Hello World</h1>
-            <app-date-range></app-date-range>
+            <h1>Package Return Value</h1>
+            <h3>{{rangeValue?.from | date: 'mediumDate'}}</h3>
+            <h3>{{rangeValue?.to | date: 'mediumDate'}}</h3>
+            <hr>
+            <app-date-range [(dateRange)]="rangeValue"></app-date-range>
         </div>
     </section>
 </main>
