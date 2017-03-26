@@ -13,6 +13,7 @@ $dateRangeContainerH: $base-line-height * 2.5;
   border: 1px solid $border;
   border-radius: 7px;
   position: relative;
+  user-select: none;
 
   &.is-active {
     border: 1px solid $blue;
@@ -94,6 +95,7 @@ $dateRangeContainerH: $base-line-height * 2.5;
   display: none;
   flex-wrap: wrap;
   overflow-y: scroll;
+  animation: popover .3s ease-in-out;
 
   @include respond-to(medium) {
     position: absolute;
@@ -393,5 +395,20 @@ $dateRangeContainerH: $base-line-height * 2.5;
         }
       }
     }
+  }
+}
+
+@keyframes popover {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(10px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
   }
 }
