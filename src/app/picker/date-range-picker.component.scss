@@ -66,11 +66,11 @@ $dateRangeContainerH: $base-line-height * 2.5;
 }
 
 .yk-calendar-container {
-  position: absolute;
-  top: calc(#{$dateRangeContainerH} + #{$base-line-height});
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 500px;
-  height: 500px;
+  width: 100vw;
+  max-width: 500px;
   background: $white;
   border: 1px solid $blue;
   border-radius: 7px;
@@ -79,6 +79,11 @@ $dateRangeContainerH: $base-line-height * 2.5;
   display: none;
   flex-wrap: wrap;
 
+  @include respond-to(medium) {
+    position: absolute;
+    top: calc(#{$dateRangeContainerH} + #{$base-line-height});
+  }
+
   &.is-opened {
     display: flex;
   }
@@ -86,7 +91,6 @@ $dateRangeContainerH: $base-line-height * 2.5;
   &:after {
     content: '';
     position: absolute;
-    display: block;
     width: $base-line-height;
     height: $base-line-height;
     top: -11px;
@@ -96,6 +100,11 @@ $dateRangeContainerH: $base-line-height * 2.5;
     border-left: 1px solid $blue;
     background: $white;
     transition: left 0.5s;
+    display: none;
+
+    @include respond-to(medium) {
+      display: block;
+    }
   }
 
   &.is-to:after {
@@ -113,12 +122,43 @@ $dateRangeContainerH: $base-line-height * 2.5;
 
   .yk-calendar {
     display: flex;
-    width: 340px;
-    border-right: 1px solid $border-light;
+    width: 100vw;
+    height: 500px;
+    border-bottom: 1px solid $border-light;
     padding: $base-line-height;
+    @include respond-to(medium) {
+      width: 340px;
+      border-right: 1px solid $border-light;
+      border-bottom: none;
+    }
   }
 
   .yk-calendar-sidebar {
     flex-grow: 1;
+    width: 158px;
+
+    .yk-sidebar-btns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      align-content: center;
+      width: 100%;
+      height: 100%;
+
+      .yk-btn {
+        background: $white;
+        border-radius: $base-line-height;
+        border: 1px solid $blue;
+        height: $base-line-height * 2;
+        width: 138px;
+        text-align: center;
+        outline: none;
+        margin: $base-line-height/4 0;
+        padding: 0;
+        color: $text-button;
+        cursor: pointer;
+      }
+    }
   }
 }
