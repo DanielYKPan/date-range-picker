@@ -1,4 +1,13 @@
-<div class="yk-dateRange-container" [ngClass]="{'is-active': opened}">
+<div class="yk-dateRange-container"
+     [ngClass]="{
+        'is-active': opened,
+        'theme-green': themeColor === 'green',
+        'theme-teal': themeColor === 'teal',
+        'theme-grape': themeColor === 'grape',
+        'theme-red': themeColor === 'red',
+        'theme-gray': themeColor === 'gray'
+    }
+">
     <div class="yk-input-container">
         <div class="yk-input-section" (click)="toggleCalendar('from')" [ngClass]="{'is-active': opened === 'from'}">
             <span class="yk-label">Start</span>
@@ -75,7 +84,7 @@
     </div>
     <div class="yk-calendar-container"
          [ngClass]="{ 'is-opened': !!opened, 'is-to': opened === 'to' }">
-        <div class="yk-icon" (click)="toggleCalendar(false)"><!--<editor-fold desc="Calendar Icon">-->
+        <div class="yk-cancel-icon" (click)="toggleCalendar(false)"><!--<editor-fold desc="Calendar Icon">-->
             <svg version="1.1" id="calendar_cancel" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100%" height="100%" viewBox="0 0 212.982 212.982" style="enable-background:new 0 0 212.982 212.982;" xml:space="preserve">
 <g id="Close">

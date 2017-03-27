@@ -32,6 +32,7 @@ export class DateRangePickerComponent implements OnInit {
     public moment: Date;
     public dayNames: string[];
     public dates: Date[];
+    @Input() public themeColor: 'green' | 'teal' | 'grape' | 'red' | 'gray';
     @Input() private dateRange: IDateRange;
     @Output() private dateRangeChange = new EventEmitter<IDateRange>();
 
