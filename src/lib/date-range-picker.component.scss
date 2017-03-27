@@ -1,0 +1,741 @@
+@import '../sass/utils/variables';
+@import '../sass/utils/functions';
+@import '../sass/utils/mixins';
+@import './colors';
+
+$dateRangeContainerH: $base-line-height * 2.5;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.yk-dateRange-container {
+  width: 300px;
+  height: $dateRangeContainerH;
+  background: $white;
+  display: inline-block;
+  border: 1px solid $border;
+  border-radius: 7px;
+  position: relative;
+  user-select: none;
+
+  &.is-active {
+    border: 1px solid $blue;
+  }
+
+  .yk-input-section {
+    outline: none;
+    padding: $base-line-height/4 10px;
+    color: $text;
+    cursor: pointer;
+    position: relative;
+    transition: all 500ms ease;
+
+    .yk-label, .yk-content {
+      @include type-setting(-1);
+      display: block;
+      text-align: center;
+    }
+
+    .yk-label {
+      color: $blue;
+    }
+
+    .yk-icon {
+      position: absolute;
+      right: 10px;
+      bottom: $base-line-height / 4;
+      width: 20px;
+      height: 20px;
+
+      svg {
+        fill: $blue;
+      }
+    }
+
+    &.is-active {
+      color: $white;
+      background-color: $blue;
+
+      .yk-label {
+        color: $white;
+      }
+
+      .yk-icon svg {
+        fill: $white;
+      }
+    }
+  }
+
+  .yk-input-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .yk-input-section {
+      width: 50%;
+      height: 100%;
+
+      &:first-child {
+        border-radius: 7px 0 0 7px;
+        border-right: .5px solid $border-light;
+      }
+
+      &:last-child {
+        border-radius: 0 7px 7px 0;
+        border-left: .5px solid $border-light;
+      }
+    }
+  }
+
+  .yk-calendar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    max-width: 500px;
+    background: $white;
+    border: 1px solid $blue;
+    border-radius: 7px;
+    user-select: none;
+    z-index: 100;
+    display: none;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    animation: popover .3s ease-in-out;
+
+    @include respond-to(medium) {
+      position: absolute;
+      top: calc(#{$dateRangeContainerH} + #{$base-line-height});
+      height: auto;
+      overflow: inherit;
+    }
+
+    &.is-opened {
+      display: flex;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: $base-line-height;
+      height: $base-line-height;
+      top: -11px;
+      left: 65px;
+      transform: rotate(45deg);
+      border-top: 1px solid $blue;
+      border-left: 1px solid $blue;
+      background: $white;
+      transition: left 0.5s;
+      display: none;
+
+      @include respond-to(medium) {
+        display: block;
+      }
+    }
+
+    &.is-to:after {
+      left: 215px;
+    }
+
+    .yk-cancel-icon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 12px;
+      height: 12px;
+      cursor: pointer;
+    }
+
+    .yk-calendar {
+      width: 100vw;
+      border-bottom: 1px solid $border-light;
+      padding: $base-line-height;
+      @include respond-to(medium) {
+        width: 340px;
+        border-right: 1px solid $border-light;
+        border-bottom: none;
+      }
+
+      .yk-calendar-control {
+        @include type-setting(-1);
+        display: flex;
+        height: $base-line-height;
+        width: 100%;
+        margin-bottom: $base-line-height/2;
+      }
+
+      .yk-calendar-control-nav {
+        position: relative;
+        cursor: pointer;
+        width: calc(100% / 8);
+
+        & > * {
+          position: absolute;
+          top: 50%;
+          right: auto;
+          bottom: auto;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .nav-prev::before,
+        .nav-next::before {
+          content: " ";
+          border-top: .5em solid transparent;
+          border-bottom: .5em solid transparent;
+          border-right: .75em solid #000;
+          width: 0;
+          height: 0;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .nav-next::before {
+          border-right: 0;
+          border-left: .75em solid #000;
+        }
+      }
+
+      .yk-calendar-control-content {
+        width: calc(100% * 6 / 8);
+        text-align: center;
+
+        .month,
+        .year {
+          display: inline-block;
+          cursor: pointer;
+          transition: transform 200ms ease;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+
+        .month {
+          margin-right: .5rem;
+          font-weight: 700;
+        }
+
+        .year {
+          font-style: italic;
+          color: #999;
+        }
+      }
+
+      .yk-calendar-content {
+        width: 100%;
+
+        .yk-calendar-row {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+        }
+
+        .yk-weekday {
+          @include type-setting(-1);
+          font-weight: 700;
+          text-align: left;
+          color: #999;
+          width: calc(100% / 7);
+        }
+
+        .yk-day {
+          @include type-setting(-1);
+          position: relative;
+          height: $base-line-height * 2;
+          cursor: pointer;
+          width: calc(100% / 7);
+          margin: $base-line-height/4 0;
+
+          &.out-focus {
+            color: #ddd;
+
+            &:hover {
+              color: #000;
+            }
+          }
+
+          &.is-within-range {
+            background: $blue-light;
+            color: $dark;
+
+            &.is-from {
+              border-top-left-radius: 50%;
+              border-bottom-left-radius: 50%;
+            }
+
+            &.is-to {
+              border-top-right-radius: 50%;
+              border-bottom-right-radius: 50%;
+            }
+
+          }
+
+          .yk-day-num {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transition: all 200ms ease;
+
+            &:hover, &.is-active {
+              background: $blue;
+              color: #FFFFFF;
+            }
+          }
+        }
+      }
+    }
+
+    .yk-calendar-sidebar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      width: 158px;
+
+      .yk-sidebar-btns {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        width: 100%;
+        height: 100%;
+
+        @include respond-to(medium) {
+          display: flex;
+        }
+
+        .yk-btn {
+          background: $white;
+          border-radius: $base-line-height;
+          border: 1px solid $blue;
+          height: $base-line-height * 2;
+          width: 138px;
+          text-align: center;
+          outline: none;
+          margin: $base-line-height/4 0;
+          padding: 0;
+          color: $text-button;
+          cursor: pointer;
+
+          &:hover {
+            background: $blue-light;
+          }
+
+          &.is-active {
+            background: $blue;
+            color: $white;
+          }
+        }
+      }
+
+      .yk-sidebar-inputs {
+        width: 150px;
+        height: $dateRangeContainerH * 2;
+        background: $white;
+        border-radius: 7px;
+        border: 1px solid $blue;
+        margin: $base-line-height/2 0;
+        display: flex;
+        flex-direction: column;
+
+        @include respond-to(medium) {
+          display: none;
+        }
+
+        .yk-input-section {
+          width: 100%;
+          height: 50%;
+
+          &:first-child {
+            border-radius: 7px 7px 0 0;
+            border-bottom: .5px solid $border-light;
+          }
+
+          &:last-child {
+            border-radius: 0 0 7px 7px;
+            border-top: .5px solid $border-light;
+          }
+        }
+      }
+    }
+  }
+
+  &.theme-green {
+    &.is-active {
+      border-color: $cyan;
+    }
+
+    .yk-input-section {
+      .yk-label {
+        color: $cyan;
+      }
+
+      .yk-icon svg {
+        fill: $cyan;
+      }
+
+      &.is-active {
+        background-color: $cyan;
+        .yk-label {
+          color: $white;
+        }
+
+        .yk-icon svg {
+          fill: $white;
+        }
+      }
+    }
+
+    .yk-calendar-container {
+      border-color: $cyan;
+
+      &:after {
+        border-top-color: $cyan;
+        border-left-color: $cyan;
+      }
+
+      .yk-calendar {
+        .yk-calendar-content {
+          .yk-day {
+            &.is-within-range {
+              background: lighten($cyan, 20);
+            }
+
+            .yk-day-num {
+              &:hover, &.is-active {
+                background: $cyan;
+              }
+            }
+          }
+        }
+      }
+
+      .yk-calendar-sidebar {
+        .yk-sidebar-btns {
+          .yk-btn {
+            border-color: $cyan;
+
+            &:hover {
+              background: lighten($cyan, 20);
+            }
+
+            &.is-active {
+              background: $cyan;
+            }
+          }
+        }
+
+        .yk-sidebar-inputs {
+          border-color: $cyan;
+        }
+      }
+    }
+  }
+  &.theme-teal {
+    &.is-active {
+      border-color: $teal;
+    }
+
+    .yk-input-section {
+      .yk-label {
+        color: $teal;
+      }
+
+      .yk-icon svg {
+        fill: $teal;
+      }
+
+      &.is-active {
+        background-color: $teal;
+        .yk-label {
+          color: $white;
+        }
+
+        .yk-icon svg {
+          fill: $white;
+        }
+      }
+    }
+
+    .yk-calendar-container {
+      border-color: $teal;
+
+      &:after {
+        border-top-color: $teal;
+        border-left-color: $teal;
+      }
+
+      .yk-calendar {
+        .yk-calendar-content {
+          .yk-day {
+            &.is-within-range {
+              background: lighten($teal, 20);
+            }
+
+            .yk-day-num {
+              &:hover, &.is-active {
+                background: $teal;
+              }
+            }
+          }
+        }
+      }
+
+      .yk-calendar-sidebar {
+        .yk-sidebar-btns {
+          .yk-btn {
+            border-color: $teal;
+
+            &:hover {
+              background: lighten($teal, 20);
+            }
+            &.is-active {
+              background: $teal;
+            }
+          }
+        }
+        .yk-sidebar-inputs {
+          border-color: $teal;
+        }
+      }
+    }
+  }
+  &.theme-grape {
+    &.is-active {
+      border-color: $grape;
+    }
+
+    .yk-input-section {
+      .yk-label {
+        color: $grape;
+      }
+
+      .yk-icon svg {
+        fill: $grape;
+      }
+
+      &.is-active {
+        background-color: $grape;
+        .yk-label {
+          color: $white;
+        }
+
+        .yk-icon svg {
+          fill: $white;
+        }
+      }
+    }
+
+    .yk-calendar-container {
+      border-color: $grape;
+
+      &:after {
+        border-top-color: $grape;
+        border-left-color: $grape;
+      }
+
+      .yk-calendar {
+        .yk-calendar-content {
+          .yk-day {
+            &.is-within-range {
+              background: lighten($grape, 20);
+            }
+
+            .yk-day-num {
+              &:hover, &.is-active {
+                background: $grape;
+              }
+            }
+          }
+        }
+      }
+
+      .yk-calendar-sidebar {
+        .yk-sidebar-btns {
+          .yk-btn {
+            border-color: $grape;
+
+            &:hover {
+              background: lighten($grape, 20);
+              color: $white;
+            }
+
+            &.is-active {
+              background: $grape;
+            }
+          }
+        }
+
+        .yk-sidebar-inputs {
+          border-color: $grape;
+        }
+      }
+    }
+  }
+  &.theme-red {
+    &.is-active {
+      border-color: $red;
+    }
+
+    .yk-input-section {
+      .yk-label {
+        color: $red;
+      }
+
+      .yk-icon svg {
+        fill: $red;
+      }
+
+      &.is-active {
+        background-color: $red;
+        .yk-label {
+          color: $white;
+        }
+
+        .yk-icon svg {
+          fill: $white;
+        }
+      }
+    }
+
+    .yk-calendar-container {
+      border-color: $red;
+
+      &:after {
+        border-top-color: $red;
+        border-left-color: $red;
+      }
+
+      .yk-calendar {
+        .yk-calendar-content {
+          .yk-day {
+            &.is-within-range {
+              background: lighten($red, 20);
+            }
+
+            .yk-day-num {
+              &:hover, &.is-active {
+                background: $red;
+              }
+            }
+          }
+        }
+      }
+
+      .yk-calendar-sidebar {
+        .yk-sidebar-btns {
+          .yk-btn {
+            border-color: $red;
+
+            &:hover {
+              background: lighten($red, 20);
+            }
+
+            &.is-active {
+              background: $red;
+            }
+          }
+        }
+
+        .yk-sidebar-inputs {
+          border-color: $red;
+        }
+      }
+    }
+  }
+  &.theme-gray {
+    &.is-active {
+      border-color: $gray;
+    }
+
+    .yk-input-section {
+      .yk-label {
+        color: $gray;
+      }
+
+      .yk-icon svg {
+        fill: $gray;
+      }
+
+      &.is-active {
+        background-color: $gray;
+        .yk-label {
+          color: $white;
+        }
+
+        .yk-icon svg {
+          fill: $white;
+        }
+      }
+    }
+
+    .yk-calendar-container {
+      border-color: $gray;
+
+      &:after {
+        border-top-color: $gray;
+        border-left-color: $gray;
+      }
+
+      .yk-calendar {
+        .yk-calendar-content {
+          .yk-day {
+            &.is-within-range {
+              background: lighten($gray, 20);
+            }
+
+            .yk-day-num {
+              &:hover, &.is-active {
+                background: $gray;
+              }
+            }
+          }
+        }
+      }
+
+      .yk-calendar-sidebar {
+        .yk-sidebar-btns {
+          .yk-btn {
+            border-color: $gray;
+
+            &:hover {
+              background: lighten($gray, 20);
+              color: $white;
+            }
+
+            &.is-active {
+              background: $gray;
+            }
+          }
+        }
+        .yk-sidebar-inputs {
+          border-color: $gray;
+        }
+      }
+    }
+  }
+}
+
+@keyframes popover {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(10px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}

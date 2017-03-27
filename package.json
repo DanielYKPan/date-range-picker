@@ -1,47 +1,53 @@
 {
-  "name": "ag-date-range-picker",
-  "version": "1.0.0-alpha",
+  "name": "yk-date-range-picker",
+  "version": "1.0.0-alpha-1",
   "description": "Angular Date Range Picker Component",
   "keywords": [
     "Angular",
     "rxjs",
     "datepicker",
-    "date-range-picker"
+    "date-range-picker",
+    "picker"
   ],
-  "author": "daniel pan",
+  "author": "daniel pan <myron.yk.pan@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DanielYKPan/ag-date-range-picker.git"
+    "url": "https://github.com/DanielYKPan/date-range-picker.git"
   },
+  "homepage": "https://github.com/DanielYKPan/date-range-picker",
+  "main": "index.js",
+  "module": "date-range-picker.module.js",
+  "types": "index.d.ts",
   "scripts": {
     "server:dev": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --content-base src/",
     "start": "npm run server:dev",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@angular/animations": "^4.0.0",
     "@angular/common": "~4.0.0",
     "@angular/compiler": "~4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
     "@angular/core": "~4.0.0",
     "@angular/forms": "~4.0.0",
     "@angular/http": "~4.0.0",
     "@angular/platform-browser": "~4.0.0",
     "@angular/platform-browser-dynamic": "~4.0.0",
+    "@angular/platform-server": "^4.0.0",
     "@angular/router": "~4.0.0",
-
-    "core-js": "^2.4.1",
-    "rxjs": "5.0.2",
-    "zone.js": "^0.8.4"
-  },
-  "devDependencies": {
     "@types/jasmine": "^2.5.36",
     "@types/node": "^7.0.0",
     "@types/selenium-webdriver": "~2.53.39",
     "angular2-template-loader": "^0.6.0",
     "autoprefixer": "^6.5.3",
     "awesome-typescript-loader": "~3.0.0-beta.18",
+    "codelyzer": "^3.0.0-beta.4",
+    "core-js": "^2.4.1",
     "css-loader": "^0.23.1",
+    "date-fns": "^1.28.1",
     "extract-text-webpack-plugin": "~2.0.0-rc.3",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",
@@ -73,12 +79,15 @@
     "resolve-url-loader": "^2.0.2",
     "rimraf": "^2.5.2",
     "run-sequence": "^1.2.2",
+    "rxjs": "5.0.2",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "to-string-loader": "^1.1.5",
-    "typescript": "~2.2.1",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
     "webpack": "2.2.0",
     "webpack-dev-server": "2.4.1",
-    "webpack-merge": "~3.0.0"
+    "webpack-merge": "~3.0.0",
+    "zone.js": "^0.8.4"
   }
 }
