@@ -11,7 +11,7 @@ main {
 
 .header {
   width: 100%;
-  height: $base-line-height * 15;
+  height: $base-line-height * 7;
   background-color: $brand-color;
   color: $white;
   text-align: center;
@@ -19,11 +19,15 @@ main {
 
   h1 {
     @include type-setting(2);
-    margin: $base-line-height * 3 0 0;
+    margin: $base-line-height 0 0;
 
     @include respond-to('large') {
-      @include type-setting(5);
+      @include type-setting(3);
     }
+  }
+
+  small {
+    color: gainsboro;
   }
 
   .github-banner {
@@ -43,4 +47,15 @@ main {
 
 .demo {
   width: 100%;
+
+  .range-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+    .select {
+      margin: $base-line-height 0;
+    }
+  }
 }
