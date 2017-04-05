@@ -8,12 +8,6 @@ import {
 } from '@angular/core';
 import * as dateFns from 'date-fns';
 
-// webpack1_
-declare let require: any;
-const myDpStyles: string = require('./date-range-picker.component.scss');
-const myDpTpl: string = require('./date-range-picker.component.html');
-// webpack2_
-
 interface IDateRange {
     from: Date;
     to: Date;
@@ -21,8 +15,8 @@ interface IDateRange {
 
 @Component({
     selector: 'app-date-range',
-    template: myDpTpl,
-    styles: [myDpStyles],
+    templateUrl: './date-range-picker.component.html',
+    styleUrls: ['./date-range-picker.component.scss'],
 })
 export class DateRangePickerComponent implements OnInit {
 
