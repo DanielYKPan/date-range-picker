@@ -1,10 +1,10 @@
 
-# Angular 2 Date Range Picker
+# Angular Date Range Picker
 
-**Angular 2 date range picker - Angular2 reusable UI component**
+**Angular date range picker - Angular reusable UI component**
 
 ## Description
-Simple Angular2 date range picker. Online demo is [here](https://danielykpan.github.io/date-range-picker/). 
+Simple Angular date range picker. Online demo is [here](https://danielykpan.github.io/date-range-picker/). 
 This picker is responsive design, so feel free to try it in your desktops, tablets and mobile devices. 
 This picker uses javascript library [date-fns](https://date-fns.org/)
 
@@ -12,14 +12,14 @@ This picker uses javascript library [date-fns](https://date-fns.org/)
 
 To install this component, follow the procedure:
 
-1. __Install with [npm](https://www.npmjs.com):`npm install yk-date-range-picker --save`__
+1. __Install with [npm](https://www.npmjs.com):`npm install ng-pick-daterange --save`__
 2. Add __DateRangePickerModule__ import to your __@NgModule__ like example below
     ```js
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
     import { MyTestApp } from './my-test-app';
 
-    import { DateRangePickerModule } from 'yk-date-range-picker';
+    import { DateRangePickerModule } from 'ng-pick-daterange';
 
     @NgModule({
         imports:      [ BrowserModule, DateRangePickerModule ],
@@ -38,13 +38,13 @@ To install this component, follow the procedure:
             map: {
                 // Other components are here...
 
-                'yk-date-range-picker': 'npm:yk-date-range-picker',
+                'ng-pick-daterange': 'npm:ng-pick-daterange',
             },
             packages: {
                 // Other components are here...
 
 				// the picker
-                'yk-date-range-picker': {
+                'ng-pick-daterange': {
                     main: 'index.js',
                     defaultExtension: 'js'
                 },

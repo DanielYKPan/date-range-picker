@@ -1,6 +1,6 @@
 {
-  "name": "yk-date-range-picker",
-  "version": "1.0.0-alpha-1",
+  "name": "ng-pick-daterange",
+  "version": "1.0.0",
   "description": "Angular Date Range Picker Component",
   "keywords": [
     "Angular",
