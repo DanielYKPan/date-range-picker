@@ -3,7 +3,7 @@
  */
 
 import { Component, OnInit } from "@angular/core";
-import { IDateRange } from 'yk-date-range-picker';
+import { IDateRange } from 'ng-pick-daterange';
 
 @Component({
     selector: 'yk-app',
