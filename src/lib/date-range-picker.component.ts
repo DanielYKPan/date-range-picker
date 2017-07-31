@@ -116,6 +116,7 @@ export class DateRangePickerComponent implements OnInit {
 
         this.range = range;
         this.moment = new Date(this.datePick.from);
+        this.dateRangeChange.emit(Object.assign({}, this.datePick));
         this.generateCalendar();
     }
 
