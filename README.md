@@ -13,7 +13,8 @@ This picker uses javascript library [date-fns](https://date-fns.org/)
 To install this component, follow the procedure:
 
 1. __Install with [npm](https://www.npmjs.com):`npm install ng-pick-daterange --save`__
-2. Add __DateRangePickerModule__ import to your __@NgModule__ like example below
+2. __Also you need to install with [npm](https://www.npmjs.com):`npm i date-fns`__
+3. Add __DateRangePickerModule__ import to your __@NgModule__ like example below
     ```js
     import { NgModule } from '@angular/core';
     import { BrowserModule } from '@angular/platform-browser';
@@ -28,7 +29,7 @@ To install this component, follow the procedure:
     })
     export class MyTestAppModule {}
     ```
-3. If you are using __systemjs__ package loader add the following dateRangePicker properties to the __System.config__:
+4. If you are using __systemjs__ package loader add the following dateRangePicker properties to the __System.config__:
     ```js
     (function (global) {
         System.config({
